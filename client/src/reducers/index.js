@@ -2,14 +2,13 @@ import {ASCENDANT,DESCENDANT,NUMERIC,ALPHABETIC} from '../actions/constants';
 
 const initialState = {
     pokemons:[],// api + db 40 + db -->
-    order: { 
-        order: ASCENDANT, 
-        type: NUMERIC // ALFABETICO
+    filteredList:[],
+    order: {
+        filterType_state: "id",
+        reversed: false,
+        origin_state: "all",
+        pokemonType_state: "all",
     },
-    filter:{
-        procedencia: null, // procedencia --> db o api
-
-    }, // lo primero que hace es paginar -> 
     tipos: [],
     page: 1
 };
@@ -46,16 +45,15 @@ export default function rootReducer(state = initialState,action){
             return{
                 ...state,
                 tipos: action.payload
-                }                        
-        case '"ALPHABETIC_FILTERING"':
-            const allPokemons = state.pokemons;
-            const statusFilter = action.payload;
-
+                }   
+        case 'SET_ORDER':
             return{
                 ...state,
-                order: action.payload.order,
-                type: action.payload.type
-                    }            
+                order: action.payload
+                    
+                
+            }                
+         
         default:
             return{
                 ...state

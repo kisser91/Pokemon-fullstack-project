@@ -30,20 +30,19 @@ export function getTypes(){
     }
 }
 
-
-
-export function alphabeticSorting(payload){
+export function setOrder(payload){
     return {
-        type: "ALPHABETIC_FILTERING",
+        type: "SET_ORDER",
         payload
     }
 }
 
-export function pagination(){
-    return async function(dispatch){
-        
-
+export function pagination(payload){
+    return {
+        type: "SET_PAGINATION",
+        payload
     }
+
 }
 
 
