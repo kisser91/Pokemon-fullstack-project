@@ -5,13 +5,7 @@ const initialState = {
     tipos: [],
     current: 0,    
     pagination:[],
-
-    order: {
-        filterType_state: "id",
-        reversed: false,
-        origin_state: "all",
-        pokemonType_state: "all",
-        }   
+    order: true 
 };
 
 /*  [numerico ] [ asciendente] button
@@ -53,9 +47,27 @@ export default function rootReducer(state = initialState,action){
                 order: action.payload
                 }
         case "SET_PAGINATION":
+            let paginatedPokemons = []
+        
+                let pe = 9 // cantidad de pokemons per page
+                let pages = Math.ceil(state.pokemons.length / pe),
+                    auxFirst = 0,
+                    auxLast = pe;  
+            
+            
+                for(let i = 0; i<pages;i++){
+                    paginatedPokemons.push(state.pokemons.slice(auxFirst,auxLast))
+                    auxFirst+= 9;
+                    auxLast+=9;
+                  }
+        
+                  state.order.order && paginatedPokemons.reverse()
+                
+
+        
             return{
                 ...state,
-                pagination: action.payload
+                pagination: paginatedPokemons
                 
             }   
         case "SET_PAGE":

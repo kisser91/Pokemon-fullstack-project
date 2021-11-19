@@ -19,11 +19,15 @@ export default function Filters(){
     // Handlers -- estados locales.
     function handleOrder(event){
         event.preventDefault();
-        setOrder( event.target.value);
-        console.log(order);
+        dispatch({
+            type: "SET_ORDER",
+            payload:{order: event.target.value}
+        });
+  
     }
     function handleFilteredType(event){
         event.preventDefault();
+        
         setFilterType( event.target.value);
         console.log(filterType);
 

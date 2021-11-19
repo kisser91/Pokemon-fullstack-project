@@ -34,7 +34,7 @@ export function getTypes(){
 export function setPagination(payload){
     return {
         type: "SET_PAGINATION",
-        payload
+    
     }
 }
 
@@ -44,9 +44,6 @@ export function setCurrentPage(payload){
         payload
     }
 }
-
-
-
 
 
 export function setOrder(payload){

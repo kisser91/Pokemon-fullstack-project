@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import Cards from './Cards/Cards';
 import Filters from "./filters";
 import Pagination from "./Pagination";
+import Container from "./Container";
 import {useDispatch,useSelector} from 'react-redux';
 import { useEffect,useState } from "react";
 import { getPokemons, getTypes,setPagination } from "../actions";
@@ -20,29 +21,30 @@ export default function Home(){
     },[dispatch]);
 
     let pokemons = useSelector((state) => state.pokemons);
+    let order = useSelector((state) => state.order);
     console.log(pokemons);
+  
+    // function paginate( paginatedPokemons = [] ){
         
-    function paginate( paginatedPokemons = [] ){
-    
-            let pe = 9 // cantidad de pokemons per page
-            let pages = Math.ceil(pokemons.length / pe),
-                auxFirst = 0,
-                auxLast = pe;  
+    //         let pe = 9 // cantidad de pokemons per page
+    //         let pages = Math.ceil(pokemons.length / pe),
+    //             auxFirst = 0,
+    //             auxLast = pe;  
         
         
-            for(let i = 0; i<pages;i++){
-                paginatedPokemons.push(pokemons.slice(auxFirst,auxLast))
-                auxFirst+= 9;
-                auxLast+=9;
-              }
-            return paginatedPokemons
-    }
+    //         for(let i = 0; i<pages;i++){
+    //             paginatedPokemons.push(pokemons.slice(auxFirst,auxLast))
+    //             auxFirst+= 9;
+    //             auxLast+=9;
+    //           }
 
-    let pagination = paginate();
+    //         order && paginatedPokemons.reverse()
+    //         return paginatedPokemons
+    // }
 
-    dispatch(setPagination(pagination))
+    // let pagination = paginate();
 
-
+    dispatch(setPagination())
 
     // let [state,setState] = useState(false);
 
@@ -60,9 +62,8 @@ export default function Home(){
             <Link to='/pokemons'>Crear personaje</Link>
             <h1>Pokemon Api</h1>
             <Filters/>
-           {
-           pokemons.length && <Cards />
-           }
+            <Container/>
+
            <Pagination/>
         </div>
         

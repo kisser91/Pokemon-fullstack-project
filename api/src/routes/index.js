@@ -60,7 +60,7 @@ const getApiPokemonsAll = async () => {
     }))
     // console.log(pokemonArray);
     console.timeEnd("api");
-    console.log(pokemonArray);
+    console.log("api =>",pokemonArray);
     return pokemonArray                 
 } 
 
