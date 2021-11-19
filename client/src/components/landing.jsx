@@ -2,9 +2,18 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import BACKGROUND from '../img/BACKGROUND.png';
 import landingCSS from '../styles/landing/landing.css'
+import { useEffect } from 'react';
+import {useDispatch} from 'react-redux';
+import { getPokemons, getTypes} from "../actions";
+
 
 export default function LandingPage(){
-    
+    const dispatch = useDispatch();
+    useEffect(()=>{
+        dispatch(getPokemons());
+        dispatch(getTypes());
+    },[dispatch]);
+
     return (
 
     <div>

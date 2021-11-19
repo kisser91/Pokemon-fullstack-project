@@ -1,32 +1,21 @@
-import React,{useState} from "react";
+import React,{useState,setState} from "react";
 import { useSelector } from "react-redux";
 import { ALPHABETIC } from "../../actions/constants";
 import Card from "./card";
+import {useDispatch} from 'react-redux';
+import { useEffect } from "react";
 
-// const page = useSelector((state) => state.page);
 
 export default function Cards(){
-    const allPokemons = useSelector((state) => state.pokemons);
-
-    const { filterType_state, order_state, origin_state, pokemonType_state } = useSelector((state)=> state.order);
-    
-    const [sort,setSort] = useState([]);
+    const pokemons = useSelector((state) => state.pagination);
+    const current = useSelector((state) => state.current);
 
 
-    setSort = allPokemons.sort((a,b)=> {
-        console.log("type",filterType_state)
-        if(filterType_state !== "alfabetico"){
-            return a.filterType_state - b.filterType_state
-        } else {
-            return a.nombre - b.nombre
-        }
-    })
-    console.log(setSort);
     return  (
+            
         <div>
                 
-             { 
-                    sort && sort.map(el => { 
+                    {pokemons && pokemons[current].map(el => { 
                     // sorted && sorted.map(el => {
                         
                         return <Card 

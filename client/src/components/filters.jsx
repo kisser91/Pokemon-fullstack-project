@@ -1,10 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import {useDispatch, useSelector} from 'react-redux';
-
+import {useDispatch, useSelector,useEffect} from 'react-redux';
+import Pagination from "./Pagination";
 export default function Filters(){
     const dispatch = useDispatch();
-
+    
     // Traer tipos desde el store
     const pokemonTypes = useSelector((state) => state.tipos);
 
@@ -13,6 +13,8 @@ export default function Filters(){
         [filterType,setFilterType] = useState("numero"),
         [origin,setOrigin] = useState("all"),
         [pokemonType,setPokemonType] = useState("all");
+
+
 
     // Handlers -- estados locales.
     function handleOrder(event){
@@ -43,7 +45,6 @@ export default function Filters(){
 
     function handleSubmit(event){
         event.preventDefault();
-
         dispatch({
             type: "SET_ORDER",
             payload: {
@@ -53,14 +54,22 @@ export default function Filters(){
                 pokemonType_state: pokemonType,
             }
         })
+        
     }
 
-    
+
+
+
+
     // Paginado
 
-
-
     /* 
+
+    input --> handleOnChange --> setInput_state = ""
+    button submit --> handleSubmit -> input_state
+
+
+
             ---- numerico    ----> order ascending/descending // filter -->
     pokemon 
             ---- alfabetico  ----> order ascending/descending // filter -->
@@ -94,6 +103,8 @@ export default function Filters(){
 
                 {/* Submit button => recoje estados locales para enviar una sola accion al store  */}
                 <button type="submit" onClick={event => {handleSubmit(event)} }> Recargar </button>
+                <Pagination 
+                />
         </div>
         
     )

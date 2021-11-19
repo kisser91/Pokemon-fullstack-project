@@ -2,15 +2,16 @@ import {ASCENDANT,DESCENDANT,NUMERIC,ALPHABETIC} from '../actions/constants';
 
 const initialState = {
     pokemons:[],// api + db 40 + db -->
-    filteredList:[],
+    tipos: [],
+    current: 0,    
+    pagination:[],
+
     order: {
         filterType_state: "id",
         reversed: false,
         origin_state: "all",
         pokemonType_state: "all",
-    },
-    tipos: [],
-    page: 1
+        }   
 };
 
 /*  [numerico ] [ asciendente] button
@@ -50,10 +51,19 @@ export default function rootReducer(state = initialState,action){
             return{
                 ...state,
                 order: action.payload
-                    
+                }
+        case "SET_PAGINATION":
+            return{
+                ...state,
+                pagination: action.payload
                 
-            }                
-         
+            }   
+        case "SET_PAGE":
+            return{
+                 ...state,
+                current: action.payload  
+                }   
+    
         default:
             return{
                 ...state

@@ -30,6 +30,25 @@ export function getTypes(){
     }
 }
 
+
+export function setPagination(payload){
+    return {
+        type: "SET_PAGINATION",
+        payload
+    }
+}
+
+export function setCurrentPage(payload){
+    return {
+        type: "SET_PAGE",
+        payload
+    }
+}
+
+
+
+
+
 export function setOrder(payload){
     return {
         type: "SET_ORDER",
@@ -37,13 +56,6 @@ export function setOrder(payload){
     }
 }
 
-export function pagination(payload){
-    return {
-        type: "SET_PAGINATION",
-        payload
-    }
-
-}
 
 
 
