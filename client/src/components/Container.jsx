@@ -3,9 +3,9 @@ import Cards from "./Cards/Cards";
 import { useSelector } from "react-redux";
 
 export default function Container (){
-    const pagination = useSelector((state) => state.pagination);
+    const filteredPokemons = useSelector((state) => state.filteredPokemons);
    
     return (
-    pagination.length &&  <Cards/>
+    filteredPokemons.length &&  <Cards/>
     )
 }

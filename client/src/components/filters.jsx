@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import {useDispatch, useSelector,useEffect} from 'react-redux';
 import Pagination from "./Pagination";
+import {filterByType,setPagination} from "../actions/index";
 export default function Filters(){
     const dispatch = useDispatch();
     
@@ -19,85 +20,69 @@ export default function Filters(){
     // Handlers -- estados locales.
     function handleOrder(event){
         event.preventDefault();
+        let bool = false;
+        if(event.target.value === "des") bool = true;
         dispatch({
             type: "SET_ORDER",
-            payload:{order: event.target.value}
+            payload: bool
+        });
+        dispatch({
+            type: "SET_PAGINATION"
         });
   
     }
     function handleFilteredType(event){
-        event.preventDefault();
-        
-        setFilterType( event.target.value);
-        console.log(filterType);
-
+        dispatch({
+            type:'SET_ORDERED_POKEMONS',
+            payload: event.target.value
+        });
+        dispatch({
+            type: "SET_PAGINATION"
+        });
     }
+
     function handleOrigin(event){
-        event.preventDefault();
-        setOrigin( event.target.value);
-        console.log(origin);
-
-    }
-    function handlePokemonType(event){
-        event.preventDefault();
-        setPokemonType( event.target.value);
+        dispatch({
+            type:"SET_ORIGIN",
+            payload: event.target.value
+        });
         console.log(pokemonType);
+        dispatch({
+            type: "SET_PAGINATION"
+        });
+    }
 
+
+    
+    function handlePokemonType(event){
+        // event.preventDefault();
+        dispatch({
+            type:"FILTER_BY_TYPE",
+            payload: event.target.value
+        });
+        dispatch({
+            type: "SET_PAGINATION"
+        });
     }
     
-    // Handler -- estado global.
-
-    function handleSubmit(event){
-        event.preventDefault();
-        dispatch({
-            type: "SET_ORDER",
-            payload: {
-                filterType_state: filterType,
-                reversed: order,
-                origin_state: origin,
-                pokemonType_state: pokemonType,
-            }
-        })
-        
-    }
-
-
-
-
-
-    // Paginado
-
-    /* 
-
-    input --> handleOnChange --> setInput_state = ""
-    button submit --> handleSubmit -> input_state
-
-
-
-            ---- numerico    ----> order ascending/descending // filter -->
-    pokemon 
-            ---- alfabetico  ----> order ascending/descending // filter -->
-    */
-
-    // Componente 
     return (
         <div>
                 <select  name="order" onChange={event => {handleOrder(event)}}>
-                    <option value="false">Ascendente</option>
-                    <option value="true">Descendente</option>
+                    <option value="asc">Ascendente</option>
+                    <option value="des">Descendente</option>
                 </select>
                 <select name="type" onChange={event => {handleFilteredType(event)}}>
-                    <option value="id">Numero</option>
-                    <option value="alfabetico">Alfabetico</option>
-                    <option value="fuerza">Fuerza</option>
+                    <option value="num">Numero</option>
+                    <option value="alf">Alfabetico</option>
+                    <option value="str">Fuerza</option>
                 </select>
                 <select type="origin" onClick={event => {handleOrigin(event)} }>
-                    <option value="todos">Todos</option>
-                    <option value="existentes">Existentes</option>
-                    <option value="creados">Creados</option>
+                    <option value="all">Todos</option>
+                    <option value="api">Existentes</option>
+                    <option value="db">Creados</option>
                 </select>
                 <select type="pokemon Type" onClick={event => {handlePokemonType(event)} }>
-                    <option value="All">"All"</option>
+                    <option value="all">"All"</option>
                     {
                     pokemonTypes.map(el => {
                         return <option value={el.tipo}>{el.tipo}</option> 
@@ -106,7 +91,6 @@ export default function Filters(){
                 </select>
 
                 {/* Submit button => recoje estados locales para enviar una sola accion al store  */}
-                <button type="submit" onClick={event => {handleSubmit(event)} }> Recargar </button>
                 <Pagination 
                 />
         </div>

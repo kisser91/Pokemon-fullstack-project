@@ -30,8 +30,14 @@ export function getTypes(){
     }
 }
 
+// export function filterByType(){
+//     return {
+//         type: "FILTER_BY_TYPE".
+//     }
+// }
 
-export function setPagination(payload){
+
+export function setPagination(){
     return {
         type: "SET_PAGINATION",
     
@@ -45,7 +51,6 @@ export function setCurrentPage(payload){
     }
 }
 
-
 export function setOrder(payload){
     return {
         type: "SET_ORDER",
@@ -53,6 +58,39 @@ export function setOrder(payload){
     }
 }
 
+export function setOrderType(payload){
+    return{
+        type: "SET_ORDER_TYPE",
+        payload
+    }
+}
+
+export function setOrderedPokemons(payload){
+    return{
+        type: "SET_ORDERED_POKEMONS",
+        payload
+    }
+}
+
+export function filterByType(payload){
+    return{
+        type: "FILTER_BY_TYPE",
+        payload
+    }
+}
+
+export function setPagesQuantity(payload){
+    return{
+        type: "SET_PAGES_QUANTITY",
+        payload
+    }
+}
 
 
+export function setOrigin(payload){
+    return{
+        type: "SET_ORIGIN",
+        payload
+    }
+}
 
