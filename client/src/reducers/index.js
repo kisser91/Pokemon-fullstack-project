@@ -26,7 +26,11 @@ export default function rootReducer(state = initialState,action){
             return{
                 ...state,
                 tipos: action.payload
-            }   
+            }
+        case 'POST_POKEMON':
+            return{
+                ...state,
+            }
         case 'SET_ORDER':
             return{
                 ...state,
@@ -150,7 +154,13 @@ export default function rootReducer(state = initialState,action){
         //         filteredPokemons: OriginFiltered,
         //         statusFilter: aux
         //     }
-    
+        
+        case "GET_POKEMON_NAME":
+            return{
+                ...state,
+                filteredPokemons: action.payload
+            }
+
         default:
             return{
                 ...state

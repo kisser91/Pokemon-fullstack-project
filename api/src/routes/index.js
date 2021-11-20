@@ -20,7 +20,7 @@ const getTypes = async () =>{
     types = types.data.results.map(el =>{
         return el.name
     });
-    console.log(types);
+    // console.log(types);
     types = types.forEach(el =>{
         Tipo.findOrCreate({
             where: {tipo: el}
@@ -37,7 +37,7 @@ router.get("/types", async(req,res) =>{
 
 const getApiPokemonsAll = async () => {
     console.time("api");
-    let apiData = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=40&offset=0");
+    let apiData = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=1&offset=0");
     let array = (Object.values(apiData.data.results));
     let pokemonArray = await Promise.all(array.map(async (el,i) => {
         let body = await axios.get(el.url);
@@ -64,23 +64,16 @@ const getApiPokemonsAll = async () => {
     return pokemonArray                 
 } 
 
-
-
-
-
-
 const getDbInfo = async () =>{
-    return await Pokemon.findAll(
-        // {
-        // include:{
-        //     model: Pokemon,
-        //     attributes: ['nombre'],
-        //     through: {
-        //         attributes: [],
-        //     }
-        // }
-    // }
-    )
+    return await Pokemon.findAll({
+        include:{
+            model: Tipo,
+            attributes: ['tipo'],
+            through: {
+                attributes: [],
+            }
+        }
+    })
 
     
 }
@@ -88,8 +81,9 @@ const getDbInfo = async () =>{
 const getAll = async () =>{
     let apiInfo = await getApiPokemonsAll();
     let dbInfo = await getDbInfo();
+    console.log("dbinfo",dbInfo);
     const info = apiInfo.concat(dbInfo);
-    console.log(info);
+    // console.log(info);
     return info;
 }
 

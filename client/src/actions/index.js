@@ -30,11 +30,13 @@ export function getTypes(){
     }
 }
 
-// export function filterByType(){
-//     return {
-//         type: "FILTER_BY_TYPE".
-//     }
-// }
+
+export function POST_POKEMON(payload){
+    return {
+        type: "POST_POKEMON",
+        payload
+    }
+}
 
 
 export function setPagination(){
@@ -93,4 +95,16 @@ export function setOrigin(payload){
         payload
     }
 }
-
+export function GetPokemonName(name){
+    return async function(dispatch){
+        try{
+            let json = await axios.get(`http://localhost:3001/pokemons/?nombre=${name}`)
+            console.log(json.data)
+            return dispatch({
+                type: "GET_POKEMON_NAME",
+                payload: json.data
+            })
+        } catch (error){console.log(error)
+        }
+    }
+}

@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Card({nombre,id,vida,fuerza,velocidad,altura,peso,img}){
+export default function Card({nombre,id,vida,fuerza,velocidad,altura,peso,img,custom}){
     return(
         <div>
             <div>
@@ -11,6 +11,8 @@ export default function Card({nombre,id,vida,fuerza,velocidad,altura,peso,img}){
                 <h3>Velocidad: {velocidad}</h3>
                 <h3>Altura: {altura}</h3>
                 <h3>Peso: {peso}</h3>
+                <h3>Custom: {custom}</h3>
+
                 <img src={img} alt=""/>
 
             </div>
