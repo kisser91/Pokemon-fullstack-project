@@ -32,9 +32,10 @@ export function getTypes(){
 
 
 export function POST_POKEMON(payload){
-    return {
-        type: "POST_POKEMON",
-        payload
+    return async function(dispatch){
+        const form = await axios.post("http://localhost:3001/pokemons",payload)
+        console.log(form)
+        return form
     }
 }
 
@@ -99,7 +100,7 @@ export function GetPokemonName(name){
     return async function(dispatch){
         try{
             let json = await axios.get(`http://localhost:3001/pokemons/?nombre=${name}`)
-            console.log(json.data)
+            console.log("json data",json.data)
             return dispatch({
                 type: "GET_POKEMON_NAME",
                 payload: json.data

@@ -17,6 +17,7 @@ export default function Nav(){
             type:"SET_PAGINATION"
         });
         console.log("name escrito por el usuario",name);
+        
     }
 
 

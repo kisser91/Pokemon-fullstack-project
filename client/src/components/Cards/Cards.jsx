@@ -28,6 +28,7 @@ export default function Cards(){
                         altura ={el.altura}
                         peso ={el.peso}
                         img ={el.img}
+                        tipo ={el.tipo}
                         custom = {el.custom === true ? el.custom = "Yes" : el.custom = "No"}
                         />       
                     })   

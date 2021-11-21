@@ -37,7 +37,7 @@ router.get("/types", async(req,res) =>{
 
 const getApiPokemonsAll = async () => {
     console.time("api");
-    let apiData = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=1&offset=0");
+    let apiData = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=80&offset=0");
     let array = (Object.values(apiData.data.results));
     let pokemonArray = await Promise.all(array.map(async (el,i) => {
         let body = await axios.get(el.url);
@@ -80,10 +80,26 @@ const getDbInfo = async () =>{
 
 const getAll = async () =>{
     let apiInfo = await getApiPokemonsAll();
-    let dbInfo = await getDbInfo();
-    console.log("dbinfo",dbInfo);
-    const info = apiInfo.concat(dbInfo);
-    // console.log(info);
+    
+    let dbInfo = await getDbInfo()
+    console.log("TIPOOOOOOOOOOOOOO",apiInfo)
+
+    console.log("TIPOOOOOOOOOOOOOO",dbInfo)
+    let maped = dbInfo.map(el =>{
+        return {
+            nombre : el.nombre,
+            fuerza : el.fuerza,
+            defensa : el.defensa,
+            velocidad : el.velocidad,
+            altura : el.altura,
+            peso : el.peso,
+            img : el.img,
+            tipo : [el.tipos[0].tipo,el.tipos[1].tipo],
+            custom: el.custom
+        }
+
+    })
+    const info = apiInfo.concat(maped);
     return info;
 }
 

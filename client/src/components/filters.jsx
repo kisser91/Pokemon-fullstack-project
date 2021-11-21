@@ -3,6 +3,7 @@ import { useState } from "react";
 import {useDispatch, useSelector,useEffect} from 'react-redux';
 import Pagination from "./Pagination";
 import {filterByType,setPagination} from "../actions/index";
+import { Link } from "react-router-dom";
 export default function Filters(){
     const dispatch = useDispatch();
     
@@ -78,7 +79,7 @@ export default function Filters(){
                 </select>
                 <select type="origin" onClick={event => {handleOrigin(event)} }>
                     <option value="all">Todos</option>
-                    <option value="api">Existentes</option>
+                    <option value="api">Originales</option>
                     <option value="db">Creados</option>
                 </select>
                 <select type="pokemon Type" onClick={event => {handlePokemonType(event)} }>
@@ -89,7 +90,7 @@ export default function Filters(){
                     })
                     }
                 </select>
-
+                <Link to ="/home"><button> Reset </button></Link>
                 {/* Submit button => recoje estados locales para enviar una sola accion al store  */}
                 <Pagination 
                 />

@@ -3,7 +3,7 @@ import {ASCENDANT,DESCENDANT,NUMERIC,ALPHABETIC} from '../actions/constants';
 const initialState = {
     pokemons:[],// api + db 40 + db -->
     filteredPokemons: [],
-    statusFilter: true,
+    auxOrigin: true,
     tipos: [],
     pages: 0,
     current: 0,    
@@ -32,6 +32,8 @@ export default function rootReducer(state = initialState,action){
                 ...state,
             }
         case 'SET_ORDER':
+                state.order && state.filteredPokemons.reverse();
+                !state.order && state.filteredPokemons.reverse();
             return{
                 ...state,
                 order: action.payload
@@ -50,8 +52,7 @@ export default function rootReducer(state = initialState,action){
                       return el.tipo[0] === action.payload || el.tipo[1] === action.payload 
                     });
                   (statusFiltered.length === 0) ? statusFilter = false : statusFilter = true; 
-                  console.log("allPOkes => ",allPokes);
-                  console.log("filtered => ",statusFiltered);
+
                   return{
                 ...state,
                 filteredPokemons: statusFiltered,
@@ -59,7 +60,6 @@ export default function rootReducer(state = initialState,action){
             }    
         case 'SET_ORDERED_POKEMONS':
             let orderedList = [];
-            // ESTA BUGEADO EL NUM -->
             orderedList = state.filteredPokemons
             .sort(function(a,b){
                 if (action.payload === "str"){
@@ -93,7 +93,8 @@ export default function rootReducer(state = initialState,action){
             console.log("ordered",action.payload,orderedList);
             return{
                 ...state,
-                filteredPokemons: orderedList.reverse()
+                filteredPokemons: orderedList
+                .reverse()
             }
 
 
@@ -101,8 +102,6 @@ export default function rootReducer(state = initialState,action){
             let paginatedPokemons = [];
                 let auxPoke = state.filteredPokemons;
                 if(!auxPoke.length) auxPoke = state.pokemons;
-                state.order && auxPoke.reverse();
-                !state.order && auxPoke.reverse();
                 let pe = 9 // cantidad de pokemons per page
                 let pages = Math.ceil(auxPoke.length / pe),
                     auxFirst = 0,
@@ -135,25 +134,27 @@ export default function rootReducer(state = initialState,action){
                 ...state,
                 pages: action.payload
             }
-        // case "SET_ORIGIN":
-        //     console.log("filter origin => ",action.payload);
-        //     let pokes = state.filteredPokemons;
-        //     let aux = false;
-        //     let OriginFiltered = (action.payload === 'all') ? pokes : pokes.filter(el => {
-        //         if(action.payload === "api"){
-        //             return typeof(el.id) !==  Number
-        //         }
-        //         else {
-        //             return  typeof(el.id) ===  String
-        //         }
-        //         });
+        case "SET_ORIGIN":
+            console.log("filter origin => ",action.payload);
+            let pokes = state.filteredPokemons;
+            let aux = action.payload
+            let auxArr = [];
+            let OriginFiltered = (aux === 'all') ? pokes.concat(auxArr) : pokes.filter(el => {
+                if(aux === "api"){
+                    console.log("el y el.custom",el,el.custom)
+                    return el.custom !== true
+                }
+                else if (aux === "db"){
+                    return  el.custom === true
+                }});
 
-        //         (OriginFiltered.length === 0) ? aux = false : aux = true; 
-        //     return{
-        //         ...state,
-        //         filteredPokemons: OriginFiltered,
-        //         statusFilter: aux
-        //     }
+                (OriginFiltered.length === 0) ? aux = false : aux = true; 
+                // PUEDO CREAR UN ESTADO QUE ME GUARDE LA DB cuando voy a all lo concatena a filtered!
+            return{
+                ...state,
+                filteredPokemons: OriginFiltered,
+                auxOrigin: auxArr
+            }
         
         case "GET_POKEMON_NAME":
             return{
