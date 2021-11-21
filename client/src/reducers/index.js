@@ -149,7 +149,11 @@ export default function rootReducer(state = initialState,action){
                 }});
 
                 (OriginFiltered.length === 0) ? aux = false : aux = true; 
-                // PUEDO CREAR UN ESTADO QUE ME GUARDE LA DB cuando voy a all lo concatena a filtered!
+                // PUEDO CREAR UN ESTADO BOOL que le diga a set_paginate que use filtered list o una lista alternativa filtrada
+
+                // USAR UN FILTER PARA SEPARAR DB Y API, CONCAT EN ALL
+                // TERMINAR EL FORM --> DETAILS --> RUTAS --> ESTILOS
+
             return{
                 ...state,
                 filteredPokemons: OriginFiltered,
@@ -161,6 +165,12 @@ export default function rootReducer(state = initialState,action){
                 ...state,
                 filteredPokemons: action.payload
             }
+        
+        case "GET_POKEMON_ID":
+            return{
+                ...state,
+                filteredPokemons: action.payload
+                }
 
         default:
             return{

@@ -1,5 +1,5 @@
 import React from "react";
-import {Link}from "react-router-dom"
+import {NavLink}from "react-router-dom"
 
 export default function Card({nombre,id,vida,fuerza,velocidad,altura,peso,img,custom,tipo}){
     return(
@@ -17,7 +17,8 @@ export default function Card({nombre,id,vida,fuerza,velocidad,altura,peso,img,cu
                 <h3>{tipo[0]} </h3>
                 <h3>{tipo[1]} </h3>
                 <img src={img} alt=""/> {/* HACER UN CONDICIONAL PARA RENDERIZAR UNA IMAGEN POR DEFECTO*/}
-                <Link to="/pokemons/detail" nombre tipo img vida fuerza velocidad altura peso custom><button>Detail</button></Link>
+            
+                <NavLink to={`/pokemons/${id}`}>Detail</NavLink>
             </div>
         </div>
     )

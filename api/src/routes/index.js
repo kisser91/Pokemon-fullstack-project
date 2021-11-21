@@ -20,7 +20,6 @@ const getTypes = async () =>{
     types = types.data.results.map(el =>{
         return el.name
     });
-    // console.log(types);
     types = types.forEach(el =>{
         Tipo.findOrCreate({
             where: {tipo: el}
@@ -58,9 +57,7 @@ const getApiPokemonsAll = async () => {
             tipo:   tipos
         }    
     }))
-    // console.log(pokemonArray);
     console.timeEnd("api");
-    console.log("api =>",pokemonArray);
     return pokemonArray                 
 } 
 
@@ -82,9 +79,6 @@ const getAll = async () =>{
     let apiInfo = await getApiPokemonsAll();
     
     let dbInfo = await getDbInfo()
-    console.log("TIPOOOOOOOOOOOOOO",apiInfo)
-
-    console.log("TIPOOOOOOOOOOOOOO",dbInfo)
     let maped = dbInfo.map(el =>{
         return {
             nombre : el.nombre,
@@ -127,12 +121,11 @@ router.get("/pokemons", async(req,res)=> {
 
 router.get("/pokemons/:id", async(req,res)=> {
     const id = parseInt(req.params.id); 
-    console.log(id);
     let pokemonsAll = await getAll();
-    console.log(pokemonsAll);
-
+    
     if(id){
         let pokemonId = pokemonsAll.filter(el => el.id === id)
+        console.log("pokemon",pokemonId);
         pokemonId
         ? res.status(200).send(pokemonId) 
         : res.status(404).send('El pokemon solicitado no existe.');
@@ -156,7 +149,6 @@ router.post("/pokemons", async(req,res)=>{
         img,
         tipo
     } = req.body;
-    console.log(req.body);
     let pokemonCreation = await Pokemon.create({      
             nombre,
             vida,

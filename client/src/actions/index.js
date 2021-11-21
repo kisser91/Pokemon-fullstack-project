@@ -109,3 +109,16 @@ export function GetPokemonName(name){
         }
     }
 }
+export function getPokemonId(id){
+    return async function(dispatch){
+        try{
+            let json = await axios.get(`http://localhost:3001/pokemons/${id}`)
+            console.log("Pokemon id api",json.data)
+            return dispatch({
+                type: "GET_POKEMON_ID",
+                payload: json.data
+            })
+        } catch (error){console.log(error)
+        }
+    }
+}
