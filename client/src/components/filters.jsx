@@ -20,9 +20,11 @@ export default function Filters(){
 
     // Handlers -- estados locales.
     function handleOrder(event){
+        setOrder(event.target.value)
         event.preventDefault();
         let bool = false;
         if(event.target.value === "des") bool = true;
+
         dispatch({
             type: "SET_ORDER",
             payload: bool
@@ -90,8 +92,8 @@ export default function Filters(){
                     })
                     }
                 </select>
-                <Link to ="/home"><button> Reset </button></Link>
-                {/* Submit button => recoje estados locales para enviar una sola accion al store  */}
+                <button type="submit" onClick> Reset </button>
+                {/* crear estados locales por cada boton - handleReset los pone en ""  */}
                 <Pagination 
                 />
         </div>

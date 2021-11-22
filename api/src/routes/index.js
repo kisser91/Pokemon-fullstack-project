@@ -79,8 +79,10 @@ const getAll = async () =>{
     let apiInfo = await getApiPokemonsAll();
     
     let dbInfo = await getDbInfo()
+
     let maped = dbInfo.map(el =>{
         return {
+            id: el.id,
             nombre : el.nombre,
             fuerza : el.fuerza,
             defensa : el.defensa,
@@ -120,7 +122,9 @@ router.get("/pokemons", async(req,res)=> {
 
 
 router.get("/pokemons/:id", async(req,res)=> {
-    const id = parseInt(req.params.id); 
+    // const id = parseInt(req.params.id); 
+    const id = req.params.id; 
+    if(id.length <= 5) id = parseInt(id);
     let pokemonsAll = await getAll();
     
     if(id){
@@ -149,7 +153,7 @@ router.post("/pokemons", async(req,res)=>{
         img,
         tipo
     } = req.body;
-    let pokemonCreation = await Pokemon.create({      
+    let pokemonCreation = await Pokemon.create({    
             nombre,
             vida,
             fuerza,
