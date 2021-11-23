@@ -1,0 +1,72 @@
+.cards{
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    margin: auto;
+}
+
+.card{
+    position: relative;
+    width: 510px;
+    height: 220px;
+    margin: 2em;
+    border: 5px solid rgb(130, 173, 223);
+    gap: 3%;
+
+}
+.card:hover{
+    transition: background-color 1s ease;
+    background-color: rgba(54, 65, 75, 0.2);
+
+}
+
+.divTitle{
+    position: relative;
+    display: flex;
+    background-color: rgb(130, 173, 223);
+    height: 50px;
+    width: 100%;
+}
+
+.navLink{
+
+    text-decoration: none;
+    position: absolute;
+    text-align: right;
+    bottom: -40px;
+    right: 45px;
+    padding: 10px;
+    transition: .3s ease;
+    z-index: 1;
+
+}
+
+.navLink:hover{
+    text-decoration: none;
+    border: 2px solid white;
+
+}
+
+.info{
+    text-align: center;
+    position: relative;
+    float:right;
+    margin-bottom: 0;
+    margin-top: -55px;
+    margin-right: 10px;
+    z-index: 2;
+
+}
+
+.card img{
+    position: absolute;
+    float:left;
+    width: 350px;
+    height: auto;
+    left: -25px;
+    z-index: 1;
+    bottom: 22px;
+
+}

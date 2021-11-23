@@ -123,7 +123,7 @@ router.get("/pokemons", async(req,res)=> {
 
 router.get("/pokemons/:id", async(req,res)=> {
     // const id = parseInt(req.params.id); 
-    const id = req.params.id; 
+    let id = req.params.id; 
     if(id.length <= 5) id = parseInt(id);
     let pokemonsAll = await getAll();
     

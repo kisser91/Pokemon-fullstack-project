@@ -28,9 +28,9 @@ export default function Creation(){
             // }
     function validate(input) {
         let errors = {};
-        if (!input.title) {
+        if (!input.nombre) {
             errors.title = 'El campo de nombre es obligatorio';
-        } else if (!/^[a-zA-Z]?\s?[a-zA-Z]/.test(input.title)) {
+        } else if (!/^[a-zA-Z]?\s?[a-zA-Z]/.test(input.nombre)) {
             errors.title = 'el nombre debe estar compuesto por letras';
         }
                 
@@ -86,7 +86,7 @@ export default function Creation(){
             tipo2: "normal"
         })
         console.log("response",response)
-        navigate('success');
+        navigate('../home');
     }   
     
 

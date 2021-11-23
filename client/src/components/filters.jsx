@@ -10,17 +10,8 @@ export default function Filters(){
     // Traer tipos desde el store
     const pokemonTypes = useSelector((state) => state.tipos);
 
-    // Creo un estado local para el paginado.
-    let [order,setOrder] = useState("ascending"),
-        [filterType,setFilterType] = useState("numero"),
-        [origin,setOrigin] = useState("all"),
-        [pokemonType,setPokemonType] = useState("all");
-
-
-
-    // Handlers -- estados locales.
+    // Handlers 
     function handleOrder(event){
-        setOrder(event.target.value)
         event.preventDefault();
         let bool = false;
         if(event.target.value === "des") bool = true;
@@ -49,13 +40,13 @@ export default function Filters(){
             type:"SET_ORIGIN",
             payload: event.target.value
         });
-        console.log(pokemonType);
         dispatch({
             type: "SET_PAGINATION"
         });
     }
 
-
+    const refreshPage = ()=>{
+        window.location.reload();  }
     
     function handlePokemonType(event){
         // event.preventDefault();
@@ -92,7 +83,7 @@ export default function Filters(){
                     })
                     }
                 </select>
-                <button type="submit" onClick> Reset </button>
+                <button type="submit" onClick={refreshPage}> Reset </button>
                 {/* crear estados locales por cada boton - handleReset los pone en ""  */}
                 <Pagination 
                 />

@@ -12,7 +12,6 @@ export default function Nav(){
         dispatch(getPokemonId(id));
     },[]);
     const pokemonId = useSelector((state) => state.filteredPokemons);
-    const[pokemonState,setPokemonState] = useState(pokemonId)
     let pokemon = pokemonId[0];
  
     return (
@@ -22,6 +21,7 @@ export default function Nav(){
                                 <h3>Numero: {pokemon.id}</h3>
                                 <h3>Vida: {pokemon.vida}</h3>
                                 <h3>Fuerza: {pokemon.fuerza}</h3>
+                                <h3>defensa: {pokemon.defensa}</h3>
                                 <h3>Velocidad: {pokemon.velocidad}</h3>
                                 <h3>Altura: {pokemon.altura}</h3>
                                 <h3>Peso: {pokemon.peso}</h3>
