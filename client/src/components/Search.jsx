@@ -9,8 +9,7 @@ export default function Nav(){
     const [name,setName] = useState("");
 
     useEffect(()=>{
-        dispatch(setPagination());
-         
+        dispatch(setPagination());  
     },[dispatch]);
 
 

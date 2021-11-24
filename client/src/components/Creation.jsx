@@ -20,7 +20,7 @@ export default function Creation(){
             peso: 10,
             img: "https://i.imgur.com/UbzN4xL.png",
             tipo1: "normal",
-            tipo2: "normal"
+            tipo2: ""
             
         });
         
@@ -84,7 +84,7 @@ export default function Creation(){
             peso: "",
             img: "",
             tipo1: "normal",
-            tipo2: "normal"
+            tipo2: "bug"
         })
         console.log("response",response)
         navigate('../home');

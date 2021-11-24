@@ -12,7 +12,7 @@ export default function Cards(){
     const filtered = useSelector((state) => state.filteredPokemons);
     useEffect(() => {setPagination()}, [filtered]);
     let current = useSelector((state) => state.current);
-    if (current > pokemons.length ) current = 0;
+    if (current >= pokemons.length ) current = 0;
     return  (
             
         <div className={cards.cards}>

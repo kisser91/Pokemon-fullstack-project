@@ -44,7 +44,6 @@ export default function rootReducer(state = initialState,action){
                 orderType: action.payload
             }
         case 'FILTER_BY_TYPE':
-
             console.log("filter type => ",action.payload);
             let statusFilter = "";
             let allPokes = state.pokemons,

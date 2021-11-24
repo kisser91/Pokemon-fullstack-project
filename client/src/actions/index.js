@@ -30,14 +30,12 @@ export function getTypes(){
     }
 }
 
-
 export function postPokemon(payload){
     return async function(dispatch){
         const form = await axios.post("http://localhost:3001/pokemons",payload)
         return form
     }
 }
-
 
 export function setPagination(){
     return {
@@ -87,7 +85,6 @@ export function setPagesQuantity(payload){
         payload
     }
 }
-
 
 export function setOrigin(payload){
     return{

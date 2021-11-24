@@ -96,6 +96,7 @@ const getAll = async () =>{
 
     })
     const info = apiInfo.concat(maped);
+    console.log(info);
     return info;
 }
 
