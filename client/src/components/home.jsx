@@ -11,7 +11,6 @@ import style from '../styles/landing/landing.module.css'
 import div from "../styles/home/home.module.css"
 
 
-
 export default function Home(){
     // Componente 
     const dispatch = useDispatch();
@@ -22,10 +21,8 @@ export default function Home(){
         dispatch(getTypes());   
     },[dispatch]);
 
-    let pokemons = useSelector((state) => state.pokemons);
-    let order = useSelector((state) => state.order);
     let status = useSelector((state) => state.statusFilter);
-
+    let pokemons = useSelector((state)=> state.filteredPokemons)
 
     console.log("pages",status);
     // dispatch({type:"SET_ORDERED_POKEMONS"});
@@ -36,10 +33,8 @@ export default function Home(){
 
     return (
         <div className={div.home}>
-            <Search/>
-            <Link to='/pokemons'>Crear personaje</Link>
-            <h1>Pokemon Api</h1>
-            <Filters/>
+            <h1 className={style.title}>Pokemon Api</h1>
+            {pokemons.length > 1 && <Filters/>}
             <Container/>
             {console.log("pages 0",status)}
           {status && <Pagination/>}

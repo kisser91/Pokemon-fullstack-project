@@ -1,0 +1,10 @@
+.pagination{
+    float:left;
+    margin-top: 93vh;
+    margin-left: 38%;
+    
+}
+
+.pagination button{
+    background-color: rgba(62, 107, 136, 0.5);
+}

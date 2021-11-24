@@ -16,15 +16,14 @@ body
   background-repeat: no-repeat;    
   background-attachment: fixed;
 }
+
 img{
   max-width: 100%;
   max-height:100%;
   height: auto;
   
 }
-img.home{
-    background-color: rgba(124, 203, 255, 0.33);
-}
+
 button,select{
   background-color: rgba(255, 255, 255, 0.25);
   margin: 0 5px;
@@ -32,4 +31,16 @@ button,select{
 
 input{
   background-color: rgba(124, 203, 255, 0.33);
+}
+
+.title{
+  position: absolute;
+  margin-top:50px;
+  margin-left: 40%;
+  font-size: 4vh;
+}
+
+.btn{
+  margin-top: 30px;
+  font-size: 30px;
 }

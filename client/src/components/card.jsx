@@ -9,7 +9,7 @@ export default function Card({nombre,id,vida,fuerza,velocidad,altura,peso,img,cu
 </div>
                 <div className={card.info}>
                 <h2 className={card.name}>{nombre}</h2>
-                <h3>Numero: {id}</h3>
+                {/* <h3>Numero: {id}</h3> */}
                 {/* <h3>Vida: {vida}</h3>
                 <h3>Fuerza: {fuerza}</h3>
                 <h3>Velocidad: {velocidad}</h3>

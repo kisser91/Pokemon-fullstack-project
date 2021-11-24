@@ -4,7 +4,7 @@
     flex-wrap: wrap;
     justify-content: center;
     width: 100%;
-    margin: auto;
+    margin-top: 7vh;
 }
 
 .card{
@@ -12,13 +12,14 @@
     width: 510px;
     height: 220px;
     margin: 2em;
+    background-color: rgba(88, 114, 129, 0.664);
     border: 5px solid rgb(130, 173, 223);
     gap: 3%;
 
 }
 .card:hover{
     transition: background-color 1s ease;
-    background-color: rgba(54, 65, 75, 0.2);
+    background-color: rgba(54, 65, 75, 0.815);
 
 }
 
@@ -35,8 +36,8 @@
     text-decoration: none;
     position: absolute;
     text-align: right;
-    bottom: -40px;
-    right: 45px;
+    bottom: -50px;
+    right: 35px;
     padding: 10px;
     transition: .3s ease;
     z-index: 1;
@@ -61,6 +62,9 @@
 }
 
 .card img{
+    image-rendering: auto;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
     position: absolute;
     float:left;
     width: 350px;

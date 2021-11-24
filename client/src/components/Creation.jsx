@@ -3,7 +3,7 @@ import {useDispatch,useSelector} from 'react-redux';
 import { getTypes } from "../actions";
 import { Link,useNavigate} from "react-router-dom";
 import { postPokemon } from "../actions/index";
-
+import creation from "../styles/creation/creation.module.css";
 export default function Creation(){
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -12,12 +12,13 @@ export default function Creation(){
     const types = useSelector(state => state.tipos);
     const [input,setInput]= useState({
             nombre: "",
-            vida: "",
-            fuerza: "",
-            velocidad: "",
-            altura: "",
-            peso: "",
-            img: "https://i.pinimg.com/564x/3d/04/56/3d0456f4c89dffbf0f11d3847ca01681.jpg",
+            vida: 10,
+            fuerza: 10,
+            defensa: 10,
+            velocidad: 10,
+            altura: 10,
+            peso: 10,
+            img: "https://i.imgur.com/UbzN4xL.png",
             tipo1: "normal",
             tipo2: "normal"
             
@@ -92,9 +93,8 @@ export default function Creation(){
 
     console.log(input);
     return (
-    <div>
-        <Link to = "/home"><button>Home</button></Link>
-        <form action="">
+                <div className={creation.box}>
+                <form action="">
             <div>
                 <label>Nombre:</label>
                 <input  onChange={event => {handleChange(event)}}
@@ -153,7 +153,7 @@ export default function Creation(){
                 value={input.img} 
                 name= "img"/>
             </div>
-            <div>
+            <div className={creation.tipos}>
                 <label>tipo 1:</label>
                 <select type="pokemon Type" onChange={event => {handlePokemonType1(event)}}>
                     {

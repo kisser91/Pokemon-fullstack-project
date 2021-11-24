@@ -18,7 +18,7 @@ export default function LandingPage(){
     <div>
     <h1>Bienvenidos A la Pokedex Online</h1>
         <Link to ="/home">
-        <button>Ingresar</button>
+        <button className={style.btn}>Ingresar</button>
         </Link>
         
     </div>

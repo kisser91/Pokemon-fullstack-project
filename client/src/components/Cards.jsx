@@ -11,8 +11,8 @@ export default function Cards(){
     const pokemons = useSelector((state) => state.pagination);
     const filtered = useSelector((state) => state.filteredPokemons);
     useEffect(() => {setPagination()}, [filtered]);
-    const current = useSelector((state) => state.current);
-    
+    let current = useSelector((state) => state.current);
+    if (current > pokemons.length ) current = 0;
     return  (
             
         <div className={cards.cards}>
