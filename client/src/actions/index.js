@@ -1,11 +1,17 @@
 import axios from 'axios';
-import {    NUMERIC,
-            ALPHABETIC,
-            ASCENDANT,
-            DESCENDANT,
-            GET_POKEMONS,
-            GET_TYPES
-
+import {
+    GET_POKEMONS, 
+    GET_TYPES, 
+    POST_POKEMON,
+    SET_ORDER,
+    SET_ORDER_TYPE,
+    FILTER_BY_TYPE,
+    SET_ORDERED_POKEMONS,
+    SET_PAGINATION,
+    SET_PAGE,
+    SET_ORIGIN,
+    GET_POKEMON_NAME,
+    GET_POKEMON_ID
 } from './constants';
 
 export function getPokemons(){
@@ -26,7 +32,6 @@ export function getTypes(){
             type: GET_TYPES,
             payload: json.data
         })
-
     }
 }
 
@@ -39,56 +44,49 @@ export function postPokemon(payload){
 
 export function setPagination(){
     return {
-        type: "SET_PAGINATION",
+        type: SET_PAGINATION,
     
     }
 }
 
 export function setCurrentPage(payload){
     return {
-        type: "SET_PAGE",
+        type: SET_PAGE,
         payload
     }
 }
 
 export function setOrder(payload){
     return {
-        type: "SET_ORDER",
+        type: SET_ORDER,
         payload
     }
 }
 
 export function setOrderType(payload){
     return{
-        type: "SET_ORDER_TYPE",
+        type: SET_ORDER_TYPE,
         payload
     }
 }
 
 export function setOrderedPokemons(payload){
     return{
-        type: "SET_ORDERED_POKEMONS",
+        type: SET_ORDERED_POKEMONS,
         payload
     }
 }
 
 export function filterByType(payload){
     return{
-        type: "FILTER_BY_TYPE",
-        payload
-    }
-}
-
-export function setPagesQuantity(payload){
-    return{
-        type: "SET_PAGES_QUANTITY",
+        type: FILTER_BY_TYPE,
         payload
     }
 }
 
 export function setOrigin(payload){
     return{
-        type: "SET_ORIGIN",
+        type: SET_ORIGIN,
         payload
     }
 }
@@ -98,7 +96,7 @@ export function GetPokemonName(name){
             let json = await axios.get(`http://localhost:3001/pokemons/?nombre=${name}`)
             console.log("json data",json.data)
             return dispatch({
-                type: "GET_POKEMON_NAME",
+                type: GET_POKEMON_NAME,
                 payload: json.data
             })
         } catch (error){console.log(error)
@@ -111,7 +109,7 @@ export function getPokemonId(id){
             let json = await axios.get(`http://localhost:3001/pokemons/${id}`)
             console.log("Pokemon id api",json.data)
             return dispatch({
-                type: "GET_POKEMON_ID",
+                type: GET_POKEMON_ID,
                 payload: json.data
             })
         } catch (error){console.log(error)

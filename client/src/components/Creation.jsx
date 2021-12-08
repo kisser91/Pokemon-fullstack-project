@@ -1,7 +1,7 @@
 import React,{useState,useEffect}from "react";
 import {useDispatch,useSelector} from 'react-redux';
 import { getTypes } from "../actions";
-import { Link,useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import { postPokemon } from "../actions/index";
 import creation from "../styles/creation/creation.module.css";
 export default function Creation(){
@@ -12,86 +12,71 @@ export default function Creation(){
     const types = useSelector(state => state.tipos);
     const [input,setInput]= useState({
             nombre: "",
-            vida: 10,
+            vida: 5,
             fuerza: 10,
             defensa: 10,
             velocidad: 10,
             altura: 10,
             peso: 10,
             img: "https://i.imgur.com/UbzN4xL.png",
-            tipo1: "normal",
-            tipo2: ""
+            tipo1: null,
+            tipo2: null
             
         });
+        const [err,setErr]= useState({})
+        const [validName,setValidName] = useState( false);       
+        const [typeOne,setTypeOne] = useState("normal");
+        const [typeTwo,setTypeTwo] = useState("bug");
+
+        function handlePokemonType1(event){ setTypeOne(event.target.value)}
+        function handlePokemonType2(event){ setTypeTwo(event.target.value)}
         
-     // const handleChange(event){
-   
-            // }
-    function validate(input) {
-        let errors = {};
-        if (!input.nombre) {
-            errors.title = 'El campo de nombre es obligatorio';
-        } else if (!/^[a-zA-Z]?\s?[a-zA-Z]/.test(input.nombre)) {
-            errors.title = 'el nombre debe estar compuesto por letras';
-        }
-                
-        return errors;
-    };
-            
     function handleChange(event){
         setInput({
             ...input,
             [event.target.name] : event.target.value
         })
-    }    
+        setErr(
+            validate({
+                ...input,
+            [event.target.name] : event.target.value
+            })
+        )
+    } 
+
+    function validate(input) {
+        let errors = {};
+
+        if (!input.nombre) {
+            errors.nombre = 'El campo de nombre es obligatorio';
+        }
+        else if (!/^[a-zA-Z]/.test(input.nombre)) {
+            errors.nombre = 'Debe estar compuesto solo por letras';
+        }
+        input.nombre.length > 1 && !errors.nombre ? setValidName(true) : setValidName(false)
+        return errors;
+    };
         
-    function handlePokemonType1(event){
-        setInput({
-            ...input,
-            tipo1: event.target.value})
-    }
-    function handlePokemonType2(event){
-        setInput({
-            ...input,
-            tipo2: event.target.value})
-    }
     function handleSubmit(event){
         event.preventDefault();
-        let tipos =[input.tipo1],
-            res;
-
-        (input.tipo1 !== input.tipo2) ? res = tipos =tipos.concat([input.tipo2]) : res = tipos
-        
+        let tipos =[input.tipo1,input.tipo2];
+        console.log(types)    
+        if (tipos[0] === null || tipos[1] === null) tipos = null ;
         const response = {
-            nombre: input.nombre,
-            vida: input.vida,
-            fuerza: input.fuerza,
-            defensa: input.defensa,
-            velocidad: input.velocidad,
-            altura: input.altura,
-            peso: input.peso,
-            img: input.img,
-            tipo: res
+            nombre: input.nombre ,
+            vida: input.vida || 10,
+            fuerza: input.fuerza || 10,
+            defensa: input.defensa || 10,
+            velocidad: input.velocidad || 10,
+            altura: input.altura || 10,
+            peso: input.peso || 10,
+            img: input.img  || "https://i.imgur.com/UbzN4xL.png",
+            tipo: [typeOne,typeTwo] || ["normal","bug"]
             }
-        dispatch(postPokemon(response));
-        setInput({
-            nombre: "",
-            vida: "",
-            fuerza: "",
-            defensa:"",
-            velocidad: "",
-            altura: "",
-            peso: "",
-            img: "",
-            tipo1: "normal",
-            tipo2: "bug"
-        })
-        console.log("response",response)
-        navigate('../home');
+        console.log(response);
+        typeOne !== typeTwo && validName && dispatch(postPokemon(response)) && navigate('../home');
     }   
     
-
-    console.log(input);
     return (
                 <div className={creation.box}>
                 <form action="">
@@ -101,11 +86,12 @@ export default function Creation(){
                 type="text" 
                 value={input.nombre} 
                 name= "nombre"/>
+                {err.nombre   && <p> {err.nombre} </p>}
             </div>
             <div>
                 <label>vida:</label>
                 <input onChange={event => {handleChange(event)}}
-                type="text" 
+                type="number" 
                 value= {input.vida} 
                 name= "vida"
                 />
@@ -114,35 +100,35 @@ export default function Creation(){
             <div>
                 <label>fuerza:</label>
                 <input onChange={event => {handleChange(event)}}
-                type="text" 
+                type="number" 
                 value={input.fuerza} 
                 name= "fuerza"/>
             </div>
             <div>
                 <label>defensa:</label>
                 <input onChange={event => {handleChange(event)}}
-                type="text" 
+                type="number" 
                 value={input.defensa} 
                 name= "defensa"/>
             </div>
             <div>
                 <label>velocidad:</label>
                 <input onChange={event => {handleChange(event)}}
-                type="text" 
+                type="number"  
                 value={input.velocidad} 
                 name= "velocidad"/>
             </div>
             <div>
                 <label>altura:</label>
                 <input onChange={event => {handleChange(event)}}
-                type="text" 
+                type="number" 
                 value={input.altura} 
                 name= "altura"/>
             </div>
             <div>
                 <label>peso:</label>
                 <input onChange={event => {handleChange(event)}}
-                type="text" 
+                type="number" 
                 value={input.peso} 
                 name= "peso"/>
             </div>

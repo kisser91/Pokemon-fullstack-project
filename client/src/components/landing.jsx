@@ -1,7 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import BACKGROUND from '../img/BACKGROUND.png';
-import style from '../styles/landing/landing.module.css'
+import style from '../styles/general.module.css'
 import { useEffect } from 'react';
 import {useDispatch} from 'react-redux';
 import { getPokemons, getTypes} from "../actions";

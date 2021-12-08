@@ -1,13 +1,24 @@
-import {ASCENDANT,DESCENDANT,NUMERIC,ALPHABETIC} from '../actions/constants';
+import {
+    GET_POKEMONS, 
+    GET_TYPES, 
+    POST_POKEMON,
+    SET_ORDER,
+    SET_ORDER_TYPE,
+    FILTER_BY_TYPE,
+    SET_ORDERED_POKEMONS,
+    SET_PAGINATION,
+    SET_PAGE,
+    SET_ORIGIN,
+    GET_POKEMON_NAME,
+    GET_POKEMON_ID
+} from '../actions/constants';
 
 const initialState = {
-    pokemons:[],// api + db 40 + db -->
-    filteredPokemons: [],
-    auxOrigin: true,
+    pokemons:[],// api + db 80 + db -->
+    filteredPokemons: [], // filtrado
     tipos: [],
-    pages: 0,
     current: 0,    
-    pagination:[],
+    pagination:[], // [ [] [] ]
     order: false,
     orderType: "num",
     origin: "all"
@@ -15,35 +26,35 @@ const initialState = {
 
 export default function rootReducer(state = initialState,action){
     switch(action.type){
-        case 'GET_POKEMONS':
+        case GET_POKEMONS:
             return{
                 ...state,
                 pokemons: action.payload,
                 filteredPokemons: action.payload
 
             }
-        case 'GET_TYPES':
+        case GET_TYPES:
             return{
                 ...state,
                 tipos: action.payload
             }
-        case 'POST_POKEMON':
+        case POST_POKEMON:
             return{
                 ...state,
             }
-        case 'SET_ORDER':
+        case SET_ORDER: // ASCENDENTE  / DESCENDENTE
                 state.order && state.filteredPokemons.reverse();
                 !state.order && state.filteredPokemons.reverse();
             return{
                 ...state,
                 order: action.payload
                 }
-        case 'SET_ORDER_TYPE':
+        case SET_ORDER_TYPE: // SETEAR TIPO DE ORDEN / NUMERICO, ALFABETICO, FUERZA
             return{
                 ...state,
                 orderType: action.payload
             }
-        case 'FILTER_BY_TYPE':
+        case FILTER_BY_TYPE:
             console.log("filter type => ",action.payload);
             let statusFilter = "";
             let allPokes = state.pokemons,
@@ -57,7 +68,7 @@ export default function rootReducer(state = initialState,action){
                 filteredPokemons: statusFiltered,
                 statusFilter: statusFilter
             }    
-        case 'SET_ORDERED_POKEMONS':
+        case SET_ORDERED_POKEMONS:
             let orderedList = [];
             orderedList = state.filteredPokemons
             .sort(function(a,b){
@@ -89,7 +100,7 @@ export default function rootReducer(state = initialState,action){
                     return 0
                 }
             })
-            console.log("ordered",action.payload,orderedList);
+
             return{
                 ...state,
                 filteredPokemons: orderedList
@@ -97,10 +108,10 @@ export default function rootReducer(state = initialState,action){
             }
 
 
-        case "SET_PAGINATION":
+        case SET_PAGINATION:
             let paginatedPokemons = [];
                 let auxPoke = state.filteredPokemons;
-                if(!auxPoke.length) auxPoke = state.pokemons;
+                if(!auxPoke.length) auxPoke = [...state.pokemons];
                 let pe = 9 // cantidad de pokemons per page
                 let pages = Math.ceil(auxPoke.length / pe),
                     auxFirst = 0,
@@ -112,60 +123,46 @@ export default function rootReducer(state = initialState,action){
                     paginatedPokemons.push(auxPoke.slice(auxFirst,auxLast))
                     auxFirst+= 9;
                     auxLast+=9;
-                  }
-        
-                //   state.order && paginatedPokemons.reverse().map(el=>{el.reverse()})
-                
+                  }                 
         
             return{
                 ...state,
                 pagination: paginatedPokemons
                 
             }   
-        case "SET_PAGE":
-            console.log("current =>",action.payload);
+        case SET_PAGE: // SET CURRENT PAGE
             return{
                  ...state,
                 current: action.payload  
                 }   
-        case "SET_PAGES_QUANTITY":
-            return{
-                ...state,
-                pages: action.payload
-            }
-        case "SET_ORIGIN":
-            console.log("filter origin => ",action.payload);
-            let pokes = state.filteredPokemons;
-            let aux = action.payload
-            let auxArr = [];
-            let OriginFiltered = (aux === 'all') ? pokes.concat(auxArr) : pokes.filter(el => {
-                if(aux === "api"){
-                    console.log("el y el.custom",el,el.custom)
-                    return el.custom !== true
+
+        case SET_ORIGIN:
+                console.log("filter origin => ",action.payload);
+                let pokes = state.filteredPokemons;
+                let aux = action.payload
+                console.log(aux)
+                let OriginFiltered = (aux === 'all') ? pokes :  pokes.filter(el => {
+
+                    if(aux === "api"){
+                        return el.custom !== true
+                    }
+                    else if (aux === "db"){
+                        return  el.custom === true
+                    }});
+    
+                return{
+                    ...state,
+                    filteredPokemons: OriginFiltered,
+                    origin: aux
                 }
-                else if (aux === "db"){
-                    return  el.custom === true
-                }});
-
-                (OriginFiltered.length === 0) ? aux = false : aux = true; 
-                // PUEDO CREAR UN ESTADO BOOL que le diga a set_paginate que use filtered list o una lista alternativa filtrada
-
-                // USAR UN FILTER PARA SEPARAR DB Y API, CONCAT EN ALL
-                // TERMINAR EL FORM --> DETAILS --> RUTAS --> ESTILOS
-
-            return{
-                ...state,
-                filteredPokemons: OriginFiltered,
-                auxOrigin: auxArr
-            }
-        
-        case "GET_POKEMON_NAME":
+           
+        case GET_POKEMON_NAME:
             return{
                 ...state,
                 filteredPokemons: action.payload
             }
         
-        case "GET_POKEMON_ID":
+        case GET_POKEMON_ID:
             return{
                 ...state,
                 filteredPokemons: action.payload

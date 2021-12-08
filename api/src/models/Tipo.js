@@ -14,19 +14,5 @@ module.exports = (sequelize) => {
   {timestamps: false,
 }
   );
-
-
-
 };
 
-
-
-/* 
-
-[ ] Tipo con las siguientes propiedades:
-ID
-Nombre
-
-Todos los pokemon del tipo tal --> muchos pokemon pueden tener un tipo 
-
-*/

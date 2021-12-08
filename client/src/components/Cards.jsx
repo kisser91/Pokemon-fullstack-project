@@ -1,11 +1,10 @@
-import React,{useState,setState} from "react";
-import { useSelector } from "react-redux";
 import { ALPHABETIC } from "../actions/constants";
-import Card from "./card";
-import {useDispatch} from 'react-redux';
+import {setPagination } from "../actions";
+import React from "react";
+import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import { setOrder,setPagination } from "../actions";
 import cards from "../styles/cards/cards.module.css"
+import Card from "./card";
 
 export default function Cards(){
     const pokemons = useSelector((state) => state.pagination);
@@ -16,9 +15,9 @@ export default function Cards(){
     return  (
             
         <div className={cards.cards}>
-                    {pokemons && (current !== null) && pokemons[current].map(el => { 
-                    // sorted && sorted.map(el => {
-                        
+                    { 
+                    filtered.length && pokemons && (current !== null) && pokemons[current].map(el => { 
+                    // sorted && sorted.map(el => {         
                         return <Card 
                         nombre ={el.nombre}
                         id ={el.id}
@@ -29,9 +28,9 @@ export default function Cards(){
                         peso ={el.peso}
                         img ={el.img}
                         tipo ={el.tipo}
-                        custom = {el.custom === true ? el.custom = "Yes" : el.custom = "No"}
                         />       
-                    })   
+                    }) 
+
                 }
             
         </div>

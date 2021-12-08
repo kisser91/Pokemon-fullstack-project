@@ -3,6 +3,7 @@ import {useDispatch} from 'react-redux';
 import { GetPokemonName,setPagination} from "../actions";
 import style from "../styles/navbar/navbar.module.css";
 import { useNavigate } from "react-router";
+import { filterByType } from "../actions";
 export default function Nav(){
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -22,6 +23,8 @@ export default function Nav(){
         event.preventDefault();
         dispatch(GetPokemonName(name));
         navigate("./pokemons/:id")
+        // dispatch(filterByType(name))
+        // navigate("./home")
     }
 
 

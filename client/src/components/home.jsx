@@ -1,13 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import Filters from "./filters";
 import Pagination from "./Pagination";
 import Container from "./Container";
-import Search from "./Search";
 import {useDispatch,useSelector} from 'react-redux';
-import { useEffect,useState } from "react";
-import { getPokemons, getTypes,setPagination,setOrderedPokemons } from "../actions";
-import style from '../styles/landing/landing.module.css'
+import { useEffect} from "react";
+import { getPokemons, getTypes,setPagination} from "../actions";
+import style from '../styles/general.module.css'
 import div from "../styles/home/home.module.css"
 
 
@@ -24,19 +22,21 @@ export default function Home(){
     let status = useSelector((state) => state.statusFilter);
     let pokemons = useSelector((state)=> state.filteredPokemons)
 
-    console.log("pages",status);
-    // dispatch({type:"SET_ORDERED_POKEMONS"});
 
     dispatch(setPagination())
-
+    
+    const refreshPage = ()=>{ window.location.reload() }
 
 
     return (
         <div className={div.home}>
             <h1 className={style.title}>Pokemon Api</h1>
-            {pokemons.length > 1 && <Filters/>}
+            {pokemons.length > 1 ? <Filters/> : 
+                <div className={style.err}>
+                <h3>No se encontraron los Pokemon solicitados</h3>
+                <button type="submit" onClick={refreshPage}> Reset </button>
+                </div>}
             <Container/>
-            {console.log("pages 0",status)}
           {status && <Pagination/>}
         </div>
         

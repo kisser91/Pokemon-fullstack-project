@@ -1,14 +1,21 @@
-import React from "react";
-import { useState } from "react";
-import {useDispatch, useSelector,useEffect} from 'react-redux';
+import React,{ useEffect} from "react";
+import {useDispatch, useSelector} from 'react-redux';
 import Pagination from "./Pagination";
-import {filterByType,setPagination} from "../actions/index";
-import { Link } from "react-router-dom";
+import { setOrigin } from "../actions";
 export default function Filters(){
+
     const dispatch = useDispatch();
-    
+    const refreshPage = ()=>{ window.location.reload()}
     // Traer tipos desde el store
     const pokemonTypes = useSelector((state) => state.tipos);
+    const origin = useSelector((state) => state.origin);
+
+
+    useEffect(()=>{
+        dispatch({
+            type: "SET_PAGINATION"
+        });
+    },[dispatch]);
 
     // Handlers 
     function handleOrder(event){
@@ -36,17 +43,12 @@ export default function Filters(){
     }
 
     function handleOrigin(event){
-        dispatch({
-            type:"SET_ORIGIN",
-            payload: event.target.value
-        });
+        dispatch(setOrigin(event.target.value));
         dispatch({
             type: "SET_PAGINATION"
         });
     }
-
-    const refreshPage = ()=>{
-        window.location.reload();  }
+    
     
     function handlePokemonType(event){
         // event.preventDefault();
@@ -70,11 +72,12 @@ export default function Filters(){
                     <option value="alf">Alfabetico</option>
                     <option value="str">Fuerza</option>
                 </select>
-                <select type="origin" onClick={event => {handleOrigin(event)} }>
-                    <option value="all">Todos</option>
-                    <option value="api">Originales</option>
-                    <option value="db">Creados</option>
-                </select>
+               
+{origin=== "all" && <select type="origin" onChange={event => {handleOrigin(event)} }>
+                        <option value="all">Todos</option>
+                        <option value="api">Originales</option>
+                        <option value="db">Creados</option>
+                    </select>}
                 <select type="pokemon Type" onClick={event => {handlePokemonType(event)} }>
                     <option value="all">"All"</option>
                     {

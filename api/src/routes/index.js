@@ -31,6 +31,7 @@ getTypes();
 
 router.get("/types", async(req,res) =>{
     const typesDb = await Tipo.findAll();
+    console.log(typesDb)
     res.send(typesDb);
 })
 
@@ -83,6 +84,7 @@ const getAll = async () =>{
     let maped = dbInfo.map(el =>{
         return {
             id: el.id,
+            vida : el.vida,
             nombre : el.nombre,
             fuerza : el.fuerza,
             defensa : el.defensa,
@@ -115,7 +117,6 @@ router.get("/pokemons", async(req,res)=> {
         ? res.status(200).send(pokemonName) 
         : res.status(404).send('El pokemon solicitado no existe.');
     }
-
     else {
         res.status(200).send(pokemonsAll);
     }

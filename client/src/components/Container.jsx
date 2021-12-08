@@ -6,6 +6,6 @@ export default function Container (){
     const filteredPokemons = useSelector((state) => state.filteredPokemons);
    
     return (
-    filteredPokemons.length &&  <Cards/>
+    filteredPokemons.length && <Cards/> 
     )
 }
