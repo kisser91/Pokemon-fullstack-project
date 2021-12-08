@@ -73,28 +73,28 @@ export default function rootReducer(state = initialState,action){
             orderedList = state.filteredPokemons
             .sort(function(a,b){
                 if (action.payload === "str"){
-                    if(a.fuerza> b.fuerza){
+                    if(a.fuerza< b.fuerza){
                         return 1;
                     }
-                    if(b.fuerza > a.fuerza){
+                    if(b.fuerza < a.fuerza){
                         return -1;
                     }
                     return 0
                 }
                 else if(action.payload === "num"){
-                    if(a.id> b.id){
+                    if(a.id < b.id){
                         return 1;
                     }
-                    if(b.id > a.id){
+                    if(b.id < a.id){
                         return -1;
                     }
                     return 0
                 }
                 else{
-                    if(a.nombre > b.nombre){
+                    if(a.nombre < b.nombre){
                         return 1;
                     }
-                    if(b.nombre > a.nombre){
+                    if(b.nombre < a.nombre){
                         return -1;
                     }
                     return 0
